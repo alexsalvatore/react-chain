@@ -1,4 +1,5 @@
-import { combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 import { walletReducer } from './reducers/wallet-reducer';
 
-export default combineReducers({walletReducer});
+export default createStore(combineReducers({walletReducer}),applyMiddleware(thunk));

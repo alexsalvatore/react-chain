@@ -1,11 +1,9 @@
 import ReactDOM from 'react-dom';
 import React from 'react';
-import {createStore} from 'redux';
 import {Provider} from 'react-redux';
-import reducers from './store/store';
+import store from './store/store';
 import WalletLayout from './components/wallet-layout';
 
-const store = createStore(reducers);
 
 const App = () => {
  return <div>
