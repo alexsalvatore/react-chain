@@ -3,7 +3,7 @@ import React from 'react';
 import {createStore} from 'redux';
 import {Provider} from 'react-redux';
 import reducers from './store/store';
-import {WalletLayout} from './components/wallet-layout';
+import WalletLayout from './components/wallet-layout';
 
 const store = createStore(reducers);
 
