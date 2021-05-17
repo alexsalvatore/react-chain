@@ -3,6 +3,7 @@ import localforage from 'localforage';
 
 export const CHAIN_ADD_BLOCK = "CHAIN_ADD_BLOCK";
 export const CHAIN_ADD_CHAIN = "CHAIN_ADD_CHAIN";
+export const CHAIN_IS_MINING = "CHAIN_IS_MINING";
 
 const saveChain = () => {
     const blocks = Blockchain.getInstance().chain;

@@ -4,13 +4,16 @@ import {Provider} from 'react-redux';
 import store from './store/store';
 import WalletLayout from './components/wallet-layout';
 import ChainLayout from './components/chain-layout';
+import MiningLayout from './components/mining-layout';
 
 
 const App = () => {
+
  return <div>
      <Provider store={store}>
      <h1>Microchain 💴</h1>
      <WalletLayout></WalletLayout>
+     <MiningLayout></MiningLayout>
      <ChainLayout></ChainLayout>
      </Provider>
      </div>;
