@@ -12,7 +12,7 @@ const MoneyLayout = (props) =>{
     useEffect( ()=>{
         if(!keys.publicKey) return;
         const bank = Blockchain.getInstance().getBank();
-        console.log(bank);
+        setMoney(bank.getMoneyForSender(keys.publicKey));
     },[keys, chain]);
 
     return <div>You own {money}$</div>
