@@ -5,6 +5,7 @@ import store from './store/store';
 import WalletLayout from './components/wallet-layout';
 import ChainLayout from './components/chain-layout';
 import MiningLayout from './components/mining-layout';
+import MoneyLayout from './components/money-layout';
 
 
 const App = () => {
@@ -13,6 +14,7 @@ const App = () => {
      <Provider store={store}>
      <h1>Microchain 💴</h1>
      <WalletLayout></WalletLayout>
+     <MoneyLayout></MoneyLayout>
      <MiningLayout></MiningLayout>
      <ChainLayout></ChainLayout>
      </Provider>
