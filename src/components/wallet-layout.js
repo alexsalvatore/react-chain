@@ -50,6 +50,7 @@ const WalletLayout = (props) =>{
 
     const mapStateToProps = (state) =>({
         keys: state.walletReducer,
+        chain: state.chainReducer,
     });
 
     const mapDispatchToProps = (dispatch) => {

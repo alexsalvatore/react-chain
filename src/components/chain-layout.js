@@ -7,7 +7,6 @@ const ChainLayout = (props) => {
     useEffect( ()=>{
         store.dispatch(initChain());
     },[]);
-    console.log(    props.chain);
     return <div>
         <h2>⛓️ Chain</h2>
        {props.chain.blocks.map(block => <div key= {block.hash}>#{block.hash}</div>) }

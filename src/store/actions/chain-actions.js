@@ -20,7 +20,7 @@ export const initChain = () => {
         Blockchain.init( {
             BLOCK_HASH_METHOD: "MD5",
             BLOCK_MIN_DIFFICULTY: 3,
-            BLOCK_MAX_DIFFICULTY: 3,
+            BLOCK_MAX_DIFFICULTY: 7,
             TX_CONTENT_EXPIRATION_HOURS: 12,
             MONEY_BY_BLOCK: 15,
             MONEY_BY_KO: 1.2,
@@ -41,11 +41,12 @@ export const initChain = () => {
 }
 
 export const addBlock = (block) =>{
-
-    const result = Blockchain.getInstance().addBlock(block);
-    if(!result) return;
-    saveChain();
-    return  (dispatch) =>dispatch({type: CHAIN_ADD_BLOCK ,payload: {block}});
+    return  (dispatch) =>{
+        const result = Blockchain.getInstance().addBlock(block);
+        if(!result) return;
+        saveChain();
+        dispatch({type: CHAIN_ADD_BLOCK ,payload: {block}});
+    }
 }
 
 export const addChain = (blocks) =>{
