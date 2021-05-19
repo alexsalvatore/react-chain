@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import localforage from 'localforage';
-import {Blockchain, Transaction} from '@asalvatore/microchain';
+import {useSelector} from 'react-redux';
+import {Blockchain, Transaction, Wallet} from '@asalvatore/microchain';
+import { addPendingTX } from '../store/actions/chain-actions';
+import store from '../store/store';
 
 const PostingLayout = (props) => {
+
+    const keys = useSelector(state => state.walletReducer);
 
     const [postData, setPost] = useState({ title: '', text: '', image: '', author: ''});
     const [postMoney, setPostMoney] = useState(0);
@@ -17,13 +22,25 @@ const PostingLayout = (props) => {
     const onChange = (e) =>{
         setPost({...postData, [e.target.name]: e.target.value});
         updateValue({...postData, [e.target.name]: e.target.value});
-        localforage.setItem('postDraft',JSON.stringify(postData) );
+        localforage.setItem('postDraft',JSON.stringify({...postData, [e.target.name]: e.target.value}) );
     }
 
     const updateValue = (data) =>{
-        const tx = new Transaction({content: JSON.stringify(data)});
+        const content = JSON.stringify(data);
+        const tx = new Transaction({content});
         const postValue = Blockchain.getInstance().getTransactionCost(tx);
         setPostMoney(postValue);
+    }
+
+    const postTransaction = () =>{
+        const myWallet = new Wallet(keys.publicKey, keys.privateKey);
+        const tx = myWallet.createTransaction({sender:myWallet.publicKey ,content: JSON.stringify(postData)});
+        store.dispatch(addPendingTX(tx));
+
+        const blankPost = { title: '', text: '', image: '', author: ''};
+        setPost(blankPost);
+        // updateValue(blankPost);
+        // localforage.setItem('postDraft', null );
     }
 
     return <div>
@@ -32,9 +49,10 @@ const PostingLayout = (props) => {
         <div>
             <input value={postData.title} name="title" placeholder="title" onChange={onChange}></input> <br/>
             <input value={postData.author} name="author" placeholder="author" onChange={onChange}></input> <br/>
-            <textarea  value={postData.text} name="text" rows="15" cols="100" onChange={onChange}>
-            </textarea> <br/>
+            <textarea value={postData.text} name="text" rows="15" cols="100" onChange={onChange}>
+            </textarea><br/>
         </div>
+        <button disabled={!postData.text && !postData.image} onClick={postTransaction}>Post as Transaction</button>
     </div>;
 }
 

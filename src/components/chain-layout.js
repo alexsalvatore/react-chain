@@ -9,7 +9,12 @@ const ChainLayout = (props) => {
     },[]);
     return <div>
         <h2>⛓️ Chain</h2>
-       {props.chain.blocks.map(block => <div key= {block.hash}>#{block.hash}</div>) }
+       {props.chain.blocks.reverse().map(block => <div key= {block.hash}>
+           <div><b>#{block.hash}</b> </div>
+           <div><b>height: {block.height}</b></div>
+           <div>Nonce: {block.nonce} </div>
+           <div>Publisher: {block.publisher} </div>
+           </div>) }
     </div>;
 }
 

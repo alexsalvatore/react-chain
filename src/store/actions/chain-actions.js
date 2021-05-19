@@ -4,6 +4,7 @@ import localforage from 'localforage';
 export const CHAIN_ADD_BLOCK = "CHAIN_ADD_BLOCK";
 export const CHAIN_ADD_CHAIN = "CHAIN_ADD_CHAIN";
 export const CHAIN_IS_MINING = "CHAIN_IS_MINING";
+export const CHAIN_ADD_PENDING_TX = "CHAIN_ADD_PENDING_TX";
 
 const saveChain = () => {
     const blocks = Blockchain.getInstance().chain;
@@ -20,7 +21,7 @@ export const initChain = () => {
         Blockchain.init( {
             BLOCK_HASH_METHOD: "MD5",
             BLOCK_MIN_DIFFICULTY: 3,
-            BLOCK_MAX_DIFFICULTY: 7,
+            BLOCK_MAX_DIFFICULTY: 5,
             TX_CONTENT_EXPIRATION_HOURS: 12,
             MONEY_BY_BLOCK: 15,
             MONEY_BY_KO: 1.2,
@@ -46,6 +47,12 @@ export const addBlock = (block) =>{
         if(!result) return;
         saveChain();
         dispatch({type: CHAIN_ADD_BLOCK ,payload: {block}});
+    }
+}
+
+export const addPendingTX = (tx) =>{
+    return  (dispatch) =>{
+        dispatch({type: CHAIN_ADD_PENDING_TX ,payload: {tx}});
     }
 }
 
