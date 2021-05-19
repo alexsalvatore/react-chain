@@ -10,7 +10,7 @@ const MoneyLayout = (props) =>{
     const chain = useSelector(state => state.chainReducer);
 
     useEffect( ()=>{
-        if(!keys.publicKey) return;
+        if(!keys.publicKey || !Blockchain.getInstance()) return;
         const bank = Blockchain.getInstance().getBank();
         setMoney(bank.getMoneyForSender(keys.publicKey));
     },[keys, chain]);

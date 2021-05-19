@@ -1,5 +1,5 @@
 import { WALLET_EDIT, WALLET_CLEAR, WALLET_CREATE} from '../actions/wallet-actions';
-import {Wallet} from '@asalvatore/microchain';
+import { Wallet } from '@asalvatore/microchain';
 
 const initialState = {
     publicKey: '',

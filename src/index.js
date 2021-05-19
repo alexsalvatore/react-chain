@@ -6,6 +6,7 @@ import WalletLayout from './components/wallet-layout';
 import ChainLayout from './components/chain-layout';
 import MiningLayout from './components/mining-layout';
 import MoneyLayout from './components/money-layout';
+import PostingLayout from './components/posting-layout';
 
 
 const App = () => {
@@ -15,6 +16,7 @@ const App = () => {
      <h1>Microchain 💴</h1>
      <WalletLayout></WalletLayout>
      <MoneyLayout></MoneyLayout>
+     <PostingLayout></PostingLayout>
      <MiningLayout></MiningLayout>
      <ChainLayout></ChainLayout>
      </Provider>
