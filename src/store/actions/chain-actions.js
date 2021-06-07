@@ -2,7 +2,7 @@ import { Blockchain } from "@asalvatore/microchain";
 import localforage from "localforage";
 
 export const CHAIN_ADD_BLOCK = "CHAIN_ADD_BLOCK";
-export const CHAIN_ADD_CHAIN = "CHAIN_ADD_CHAIN";
+// export const CHAIN_ADD_CHAIN = "CHAIN_ADD_CHAIN";
 export const CHAIN_IS_MINING = "CHAIN_IS_MINING";
 export const CHAIN_ADD_PENDING_TX = "CHAIN_ADD_PENDING_TX";
 
@@ -42,7 +42,9 @@ export const initChain = () => {
       // If blockmem == NULL we generated the genensis block
       if (!blocksMem) saveChain();
 
-      dispatch({ type: CHAIN_ADD_CHAIN, payload: { blocks } });
+      blocks.forEach((block) => {
+        dispatch({ type: CHAIN_ADD_BLOCK, payload: { block } });
+      });
     });
   };
 };

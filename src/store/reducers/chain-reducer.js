@@ -2,7 +2,6 @@ import { Transaction } from "@asalvatore/microchain";
 import { typeofTX, TX_TYPE_CONTENT } from "../../helpers";
 import {
   CHAIN_ADD_BLOCK,
-  CHAIN_ADD_CHAIN,
   CHAIN_IS_MINING,
   CHAIN_ADD_PENDING_TX,
 } from "../actions/chain-actions";
@@ -48,7 +47,7 @@ export const chainReducer = (state = initialState, action) => {
         isMining: false,
       };
 
-    case CHAIN_ADD_CHAIN:
+      /*case CHAIN_ADD_CHAIN:
       const contentFoundInChain = [];
       action.payload.blocks.forEach((newBlock) => {
         if (newBlock.transactions) {
@@ -57,7 +56,7 @@ export const chainReducer = (state = initialState, action) => {
             if (typeofTX(tx) === TX_TYPE_CONTENT) contentFoundInChain.push(tx);
           });
         }
-      });
+      });*/
 
       return {
         ...state,
