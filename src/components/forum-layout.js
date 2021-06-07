@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 const ForumLayout = (props) => {
   return (
     <div>
-      <h2>👻 Forum</h2>
+      <h2>👻 Forum ({props.chain.contentTX.length})</h2>
       {props.chain.contentTX.reverse().map((tx, index) => {
         console.log(JSON.parse(tx.content));
         return (

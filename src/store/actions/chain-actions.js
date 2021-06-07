@@ -6,6 +6,8 @@ export const CHAIN_ADD_CHAIN = "CHAIN_ADD_CHAIN";
 export const CHAIN_IS_MINING = "CHAIN_IS_MINING";
 export const CHAIN_ADD_PENDING_TX = "CHAIN_ADD_PENDING_TX";
 
+const serverURL = "http://localhost:8888/freemarket/";
+
 const saveChain = () => {
   const blocks = Blockchain.getInstance().chain;
   localforage.setItem("chain", JSON.stringify(blocks));
@@ -47,6 +49,16 @@ export const initChain = () => {
 
 export const addBlock = (block) => {
   return (dispatch) => {
+    const formData = new FormData();
+    formData.append("action", "addBlock");
+    formData.append("block", JSON.stringify(block));
+    fetch(serverURL, {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data));
+
     const result = Blockchain.getInstance().addBlock(block);
     if (!result) return;
     saveChain();
@@ -56,6 +68,16 @@ export const addBlock = (block) => {
 
 export const addPendingTX = (tx) => {
   return (dispatch) => {
+    const formData = new FormData();
+    formData.append("action", "addTX");
+    formData.append("tx", JSON.stringify(tx));
+    fetch(serverURL, {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data));
+
     dispatch({ type: CHAIN_ADD_PENDING_TX, payload: { tx } });
   };
 };

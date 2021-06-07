@@ -97,8 +97,8 @@ const PostingLayout = (props) => {
         <textarea
           value={postData.text}
           name="text"
-          rows="15"
-          cols="100"
+          rows="5"
+          cols="60"
           onChange={onChange}
         ></textarea>
         <br />

@@ -9,7 +9,7 @@ const ChainLayout = (props) => {
   }, []);
   return (
     <div>
-      <h2>⛓️ Chain</h2>
+      <h2>⛓️ Chain ({props.chain.blocks.length})</h2>
       {props.chain.blocks.reverse().map((block) => (
         <div key={block.hash}>
           <div>
