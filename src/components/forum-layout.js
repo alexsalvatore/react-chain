@@ -1,5 +1,4 @@
 import React from "react";
-import store from "../store/store";
 import { connect } from "react-redux";
 
 const ForumLayout = (props) => {
@@ -7,13 +6,13 @@ const ForumLayout = (props) => {
     <div>
       <h2>👻 Forum ({props.chain.contentTX.length})</h2>
       {props.chain.contentTX.reverse().map((tx, index) => {
-        console.log(JSON.parse(tx.content));
         return (
           <div key={index}>
             <div>
               <div>
                 <b>@{tx.sender}</b>
               </div>
+              <div>{tx.ts}</div>
               <div>
                 <img src={JSON.parse(tx.content).image} height="245" />{" "}
               </div>
