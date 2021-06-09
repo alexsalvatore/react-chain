@@ -13,6 +13,7 @@ const ForumLayout = (props) => {
                 <b>@{tx.sender}</b>
               </div>
               <div>{tx.ts}</div>
+              <div>signature: {tx.signature.slice(0, 30)}...</div>
               {tx.content && (
                 <div>
                   {" "}

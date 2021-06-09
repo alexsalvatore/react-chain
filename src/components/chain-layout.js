@@ -15,6 +15,7 @@ const ChainLayout = (props) => {
           <div>
             <b>#{block.hash}</b>{" "}
           </div>
+          <div>Config: {block.configHash}</div>
           <div>
             <b>height: {block.height}</b> / difficulty: {block.difficulty}
           </div>

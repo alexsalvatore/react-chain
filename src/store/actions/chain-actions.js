@@ -52,6 +52,11 @@ export const initChain = () => {
         dispatch({ type: CHAIN_ADD_BLOCK, payload: { block } })
       );
 
+      pendingTX.forEach((tx) =>
+        dispatch({ type: CHAIN_ADD_PENDING_TX, payload: { tx } })
+      );
+
+      /*
       const txHash = [];
       blockchain.longestBlockchain.forEach((block) => {
         const blockObj = new Block(block);
@@ -68,39 +73,8 @@ export const initChain = () => {
         const txObj = new Transaction(tx);
         if (txHash.findIndex((hash) => hash === txObj.hash) >= 0) return;
         dispatch({ type: CHAIN_ADD_PENDING_TX, payload: { tx } });
-      });
-    });
-
-    //localforage.getItem("chain", (err, value) => {
-    /*const blocksMem = !err && value ? JSON.parse(value) : null;
-
-      Blockchain.init(
-        {
-          BLOCK_HASH_METHOD: "MD5",
-          BLOCK_MIN_DIFFICULTY: 3,
-          BLOCK_MAX_DIFFICULTY: 3,
-          TX_CONTENT_EXPIRATION_HOURS: 12,
-          MONEY_BY_BLOCK: 15,
-          MONEY_BY_KO: 1.2,
-          TX_CONTENT_MAX_SIZE_KO: 200,
-          GENESIS_BLOCK: {
-            publisher:
-              "04820be6a65e928d52e92b8bfe7827de7a09d3afa1356ef81f6f8528b44ba84393d32b44e4590fa9ca6b9576a6d7f2f0467af33d8f68f83e1359a8e4981f4ed5f6",
-          },
-          FOUNDERS:
-            "04820be6a65e928d52e92b8bfe7827de7a09d3afa1356ef81f6f8528b44ba84393d32b44e4590fa9ca6b9576a6d7f2f0467af33d8f68f83e1359a8e4981f4ed5f6",
-        },
-        blocksMem
-      );
-
-      const blocks = Blockchain.getInstance().chain;
-      // If blockmem == NULL we generated the genensis block
-      if (!blocksMem) saveChain();
-
-      blocks.forEach((block) => {
-        dispatch({ type: CHAIN_ADD_BLOCK, payload: { block } });
       });*/
-    // });
+    });
   };
 };
 
@@ -116,7 +90,7 @@ export const addBlock = (block) => {
 
 export const addPendingTX = (tx) => {
   return (dispatch) => {
-    wsPostTX().then((data) => console.log(data));
+    wsPostTX(tx).then((data) => console.log(data));
     dispatch({ type: CHAIN_ADD_PENDING_TX, payload: { tx } });
   };
 };
