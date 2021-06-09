@@ -5,7 +5,7 @@ const ForumLayout = (props) => {
   return (
     <div>
       <h2>👻 Forum ({props.chain.contentTX.length})</h2>
-      {props.chain.contentTX.reverse().map((tx, index) => {
+      {props.chain.contentTX.map((tx, index) => {
         return (
           <div key={index}>
             <div>
@@ -13,10 +13,20 @@ const ForumLayout = (props) => {
                 <b>@{tx.sender}</b>
               </div>
               <div>{tx.ts}</div>
-              <div>
-                <img src={JSON.parse(tx.content).image} height="245" />{" "}
-              </div>
-              <pre>{JSON.parse(tx.content).text}</pre>
+              {tx.content && (
+                <div>
+                  {" "}
+                  <div>
+                    <img src={JSON.parse(tx.content).image} height="245" />
+                  </div>
+                  <pre> {JSON.parse(tx.content).text}</pre>
+                </div>
+              )}
+              {!tx.content && (
+                <div>
+                  <i>Expired content</i>
+                </div>
+              )}
             </div>
           </div>
         );
