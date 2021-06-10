@@ -1,4 +1,4 @@
-import { Blockchain } from "@asalvatore/microchain";
+import { Block, Blockchain, Transaction } from "@asalvatore/microchain";
 import {
   wsGetAll,
   wsPostBlock,
@@ -74,9 +74,11 @@ export const initChain = () => {
 
 export const addBlock = (block) => {
   return (dispatch) => {
+    const blockObj = new Block(block);
     const lastTs = Blockchain.getInstance().lastBlock.ts;
-    const result = Blockchain.getInstance().addBlock(block);
+    const result = Blockchain.getInstance().addBlock(blockObj);
     if (!result) return;
+    dispatch({ type: CHAIN_ADD_BLOCK, payload: { block } });
 
     wsPostBlock(block, lastTs).then((data) => {
       const blocks = data.result.chain ? data.result.chain : [];
@@ -84,17 +86,28 @@ export const addBlock = (block) => {
 
       // Ajout des nouveaux block
       blocks.forEach((newBlock) => {
-        const result = Blockchain.getInstance().addBlock(newBlock);
-        if (result) {
-          dispatch({ type: CHAIN_ADD_BLOCK, payload: { newBlock } });
+        const newblockObj = new Block(newBlock);
+        const blockExist = Blockchain.getInstance().getParent(newblockObj.hash);
+        if (!blockExist) {
+          const result = Blockchain.getInstance().addBlock(newblockObj);
+          if (result) {
+            dispatch({
+              type: CHAIN_ADD_BLOCK,
+              payload: { block: newblockObj },
+            });
+          }
         }
       });
       //Ajout des pending
-      pendingTX.forEach((tx) =>
-        dispatch({ type: CHAIN_ADD_PENDING_TX, payload: { tx } })
-      );
+      const bank = Blockchain.getInstance().getBank();
+      pendingTX.forEach((tx) => {
+        const txObj = new Transaction(tx);
+        const index = bank.txPool.findIndex((tpool) => tpool === txObj.hash);
+        if (index < 0)
+          dispatch({ type: CHAIN_ADD_PENDING_TX, payload: { tx } });
+      });
 
-      dbSaveBlocks(blockchain.longestBlockchain);
+      dbSaveBlocks(Blockchain.longestBlockchain);
     });
   };
 };
