@@ -112,9 +112,9 @@ export const addBlock = (block) => {
   };
 };
 
-export const addPendingTX = (tx) => {
+export const addPendingTX = (tx, recaptcha) => {
   return (dispatch) => {
-    wsPostTX(tx).then((data) => console.log(data));
+    wsPostTX(tx, recaptcha).then((data) => console.log(data));
     dispatch({ type: CHAIN_ADD_PENDING_TX, payload: { tx } });
   };
 };

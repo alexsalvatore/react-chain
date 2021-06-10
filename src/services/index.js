@@ -36,10 +36,11 @@ export const wsPostBlock = (block, ts) => {
   }).then((response) => response.json());
 };
 
-export const wsPostTX = (tx) => {
+export const wsPostTX = (tx, recaptcha) => {
   const formData = new FormData();
   formData.append("money", MONEY);
   formData.append("action", "addTX");
+  formData.append("recaptcha", recaptcha);
   formData.append("tx", JSON.stringify(tx));
   return fetch(SERVER_URL, {
     method: "POST",

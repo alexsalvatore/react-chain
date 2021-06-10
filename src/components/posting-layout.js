@@ -4,8 +4,10 @@ import { useSelector } from "react-redux";
 import { Blockchain, Transaction, Wallet } from "@asalvatore/microchain";
 import { addPendingTX } from "../store/actions/chain-actions";
 import store from "../store/store";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const PostingLayout = (props) => {
+  const recaptchaRef = React.createRef();
   const keys = useSelector((state) => state.walletReducer);
 
   const [postData, setPost] = useState({
@@ -46,8 +48,12 @@ const PostingLayout = (props) => {
       sender: myWallet.publicKey,
       content: JSON.stringify(postData),
     });
-    store.dispatch(addPendingTX(tx));
 
+    const recaptchaValue = recaptchaRef.current.getValue();
+    store.dispatch(addPendingTX(tx, recaptchaValue));
+
+    // Put all to zero
+    recaptchaRef.current.reset();
     const blankPost = {
       ...postData,
       title: "",
@@ -103,6 +109,11 @@ const PostingLayout = (props) => {
         ></textarea>
         <br />
       </div>
+      <ReCAPTCHA
+        ref={recaptchaRef}
+        sitekey="6LfOZR0bAAAAACd59wHoRGbVU8gsC2Rn2pRdNfOn"
+        onChange={onChange}
+      />
       <button
         disabled={!postData.text && !postData.image}
         onClick={postTransaction}
