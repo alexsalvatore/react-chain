@@ -46,12 +46,6 @@ const MiningLayout = (props) => {
       transactions: JSON.stringify(chainRef.current.pendingTX),
     });
 
-    console.log(
-      "block send to mining!",
-      JSON.stringify(chain.pendingTX),
-      isAutoMine
-    );
-
     const userWallet = new Wallet(keys.publicKey, keys.privateKey);
     block.sign(userWallet);
     setMining(true);

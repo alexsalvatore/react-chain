@@ -64,9 +64,9 @@ export const initChain = () => {
           dispatch({ type: CHAIN_ADD_PENDING_TX, payload: { tx } })
         );
 
-        console.log(blockchain.longestBlockchain);
-        console.log(blockchain.chain);
-        dbSaveBlocks(blockchain.chain);
+        // console.log(blockchain.longestBlockchain);
+        // console.log(blockchain.chain);
+        dbSaveBlocks(blockchain.longestBlockchain);
       });
     });
   };
@@ -94,7 +94,7 @@ export const addBlock = (block) => {
         dispatch({ type: CHAIN_ADD_PENDING_TX, payload: { tx } })
       );
 
-      dbSaveBlocks(blockchain.chain);
+      dbSaveBlocks(blockchain.longestBlockchain);
     });
   };
 };
