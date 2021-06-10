@@ -2,33 +2,13 @@ import ReactDOM from "react-dom";
 import React from "react";
 import { Provider } from "react-redux";
 import store from "./store/store";
-import WalletLayout from "./components/wallet-layout";
-import ForumLayout from "./components/forum-layout";
-import ChainLayout from "./components/chain-layout";
-import MiningLayout from "./components/mining-layout";
-import MoneyLayout from "./components/money-layout";
-import PostingLayout from "./components/posting-layout";
+import RootLayout from "./components/root-layout";
 
 const App = () => {
   return (
     <div>
       <Provider store={store}>
-        <h1>Microchain 💴</h1>
-        <div>
-          based on{" "}
-          <a
-            href="https://www.npmjs.com/package/@asalvatore/microchain"
-            target="_blank"
-          >
-            @asalvatore's <i>Microchain</i>
-          </a>
-        </div>
-        <WalletLayout></WalletLayout>
-        <MoneyLayout></MoneyLayout>
-        <PostingLayout></PostingLayout>
-        <MiningLayout></MiningLayout>
-        <ForumLayout></ForumLayout>
-        <ChainLayout></ChainLayout>
+        <RootLayout></RootLayout>
       </Provider>
     </div>
   );

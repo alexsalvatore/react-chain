@@ -72,13 +72,13 @@ const PostingLayout = (props) => {
         Cost {postMoney}$ ({JSON.stringify(postData).length / 1000}Ko)
       </div>
       <div>
-        <input
+        {/*<input
           value={postData.title}
           name="title"
           placeholder="title"
           onChange={onChange}
         ></input>{" "}
-        <br />
+        <br />*/}
         <input
           value={postData.author}
           name="author"
@@ -93,13 +93,13 @@ const PostingLayout = (props) => {
           onChange={onChange}
         ></input>{" "}
         <br />
-        <input
+        {/*<input
           value={postData.channel}
           name="channel"
           placeholder="channel"
           onChange={onChange}
         ></input>{" "}
-        <br />
+        <br />*/}
         <textarea
           value={postData.text}
           name="text"

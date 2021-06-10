@@ -1,12 +1,10 @@
 import React, { useEffect } from "react";
-import store from "../store/store";
 import { connect } from "react-redux";
-import { initChain } from "../store/actions/chain-actions";
 
 const ChainLayout = (props) => {
-  useEffect(() => {
+  /*useEffect(() => {
     store.dispatch(initChain());
-  }, []);
+  }, []);*/
   return (
     <div>
       <h2>⛓️ Chain ({props.chain.blocks.length})</h2>
