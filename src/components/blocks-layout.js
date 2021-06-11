@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 
-const ChainLayout = (props) => {
+const BlocksLayout = (props) => {
   /*useEffect(() => {
     store.dispatch(initChain());
   }, []);*/
@@ -29,4 +29,4 @@ const mapStateToProps = (state) => ({
   chain: state.chainReducer,
 });
 
-export default connect(mapStateToProps)(ChainLayout);
+export default connect(mapStateToProps)(BlocksLayout);

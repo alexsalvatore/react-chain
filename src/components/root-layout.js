@@ -1,19 +1,18 @@
 import React, { useEffect } from "react";
-import WalletLayout from "./wallet-layout";
-import ForumLayout from "./forum-layout";
-import ChainLayout from "./chain-layout";
+
 import MiningLayout from "./mining-layout";
+import WalletLayout from "./wallet-layout";
 import MoneyLayout from "./money-layout";
+import NavLayout from "./nav-layout";
 import PostingLayout from "./posting-layout";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
 import store from "../store/store";
 import { initChain } from "../store/actions/chain-actions";
 import { getKeyPairs } from "../store/actions/wallet-actions";
+import BlockchainComponent from "./blockchain-component";
 
 const RootLayout = (props) => {
-  const keys = useSelector((state) => state.walletReducer);
-
   useEffect(() => {
     store.dispatch(initChain());
     store.dispatch(getKeyPairs());
@@ -21,17 +20,69 @@ const RootLayout = (props) => {
 
   return (
     <Router>
-      <h1>Microchain 💴</h1>
       <div>
-        based on{" "}
-        <a
-          href="https://www.npmjs.com/package/@asalvatore/microchain"
-          target="_blank"
-        >
-          @asalvatore's <i>Microchain</i>
-        </a>
+        <h1>Microchain 💴</h1>
+        <div>
+          based on{" "}
+          <a
+            href="https://www.npmjs.com/package/@asalvatore/microchain"
+            target="_blank"
+          >
+            @asalvatore's <i>Microchain</i>
+          </a>
+        </div>
+        <MoneyLayout></MoneyLayout>
+        <NavLayout></NavLayout>
+
+        {/*<nav>
+          <ul>
+            <li>
+              <Link to="/">Chain</Link>
+            </li>
+            {keys.publicKey && (
+              <li>
+                <Link to="/wallet">Wallet</Link>
+              </li>
+            )}
+            {keys.publicKey && (
+              <li>
+                <Link to="/posting">Posting</Link>
+              </li>
+            )}
+            {keys.publicKey && (
+              <li>
+                <Link to="/mining">Mining</Link>
+              </li>
+            )}
+          </ul>
+            </nav>*/}
+        <Switch>
+          <Route path="/chain">
+            <BlockchainComponent />
+          </Route>
+          <Route path="/wallet">
+            <WalletLayout />
+          </Route>
+          <Route path="/posting">
+            <PostingLayout />
+          </Route>
+          <Route path="/mining">
+            <MiningLayout />
+          </Route>
+
+          <Route path="/">
+            <BlockchainComponent />
+          </Route>
+        </Switch>
       </div>
-      <MoneyLayout></MoneyLayout>
+    </Router>
+  );
+};
+
+export default RootLayout;
+
+/*
+      <Router>
       <nav>
         <ul>
           <li>
@@ -76,8 +127,4 @@ const RootLayout = (props) => {
           <ForumLayout />
         </Route>
       </Switch>
-    </Router>
-  );
-};
-
-export default RootLayout;
+          </Router>*/
