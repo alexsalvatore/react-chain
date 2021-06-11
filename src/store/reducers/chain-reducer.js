@@ -39,7 +39,8 @@ export const chainReducer = (state = initialState, action) => {
       if (newBlock.transactions) {
         const txs = JSON.parse(newBlock.transactions);
         txs.forEach((tx) => {
-          if (typeofTX(tx) === TX_TYPE_CONTENT) contentFound.push(tx);
+          if (typeofTX(tx) === TX_TYPE_CONTENT && tx.content)
+            contentFound.push(tx);
           txFound.push(tx);
 
           //Does this TX is pending?

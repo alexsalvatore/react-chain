@@ -18,7 +18,12 @@ const MoneyLayout = (props) => {
     <div>
       {keys.publicKey && (
         <div>
-          You are <b>{keys.publicKey.slice(0, 30)}...</b> & own {money}$
+          <div>
+            You are <b>{keys.publicKey.slice(0, 30)}...</b>
+          </div>
+          <div>
+            You have <b>💴 {money}$ </b>{" "}
+          </div>
         </div>
       )}
       {!keys.publicKey && (
