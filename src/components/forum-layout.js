@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Media, Image } from "react-bootstrap";
 
 const ForumLayout = (props) => {
   return (
@@ -7,27 +8,27 @@ const ForumLayout = (props) => {
       {props.chain.contentTX.map((tx, index) => {
         return (
           <div key={index}>
-            <div>
-              <div>
-                <b>@{tx.sender}</b>
-              </div>
-              <div>{tx.ts}</div>
-              <div>signature: {tx.signature.slice(0, 30)}...</div>
-              {tx.content && (
-                <div>
-                  {" "}
-                  <div>
-                    <img src={JSON.parse(tx.content).image} height="245" />
-                  </div>
-                  <pre> {JSON.parse(tx.content).text}</pre>
-                </div>
+            <Media>
+              {JSON.parse(tx.content).image && (
+                <Image
+                  width={245}
+                  className="align-self-start mr-3"
+                  src={JSON.parse(tx.content).image}
+                  thumbnail
+                />
               )}
-              {!tx.content && (
-                <div>
-                  <i>Expired content</i>
-                </div>
-              )}
-            </div>
+              <Media.Body>
+                <figcaption className="blockquote-footer">
+                  @{tx.sender.slice(0, 30)}...
+                  <br />
+                  {new Date(tx.ts).toISOString()}
+                  <br />
+                  Content hash: {tx.contentHash}
+                  <br />
+                </figcaption>
+                <p>{JSON.parse(tx.content).text}</p>
+              </Media.Body>
+            </Media>
           </div>
         );
       })}

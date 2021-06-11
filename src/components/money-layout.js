@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Blockchain } from "@asalvatore/microchain";
+import { Alert } from "react-bootstrap";
 
 const MoneyLayout = (props) => {
   const [money, setMoney] = useState(0);
@@ -17,14 +18,14 @@ const MoneyLayout = (props) => {
   return (
     <div>
       {keys.publicKey && (
-        <div>
+        <Alert variant="success">
           <div>
-            You are <b>{keys.publicKey.slice(0, 30)}...</b>
+            You are <b>@{keys.publicKey.slice(0, 30)}...</b>
           </div>
           <div>
             You have <b>💴 {money}$ </b>{" "}
           </div>
-        </div>
+        </Alert>
       )}
       {!keys.publicKey && (
         <div>💳 Create a Wallet before being able to post or mine!</div>
