@@ -2,6 +2,7 @@ import { Blockchain } from "@asalvatore/microchain";
 import React, { useEffect, useState } from "react";
 import PublicKeyLayout from "./public-key-layout";
 import { useSelector } from "react-redux";
+import SendMoneyLayout from "./send-money-layout";
 
 const ProfileHeader = (props) => {
   const [money, setMoney] = useState(0);
@@ -21,8 +22,12 @@ const ProfileHeader = (props) => {
     <div className={"text-center container"}>
       <PublicKeyLayout publicKey={props.userId}></PublicKeyLayout>
       <div>
-        Own $ <span>{money}</span>
+        Own{" "}
+        <b>
+          $ <span>{money}</span>
+        </b>
       </div>
+      <SendMoneyLayout></SendMoneyLayout>
     </div>
   );
 };
