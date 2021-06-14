@@ -14,10 +14,12 @@ const NavLayout = (props) => {
   return (
     <div>
       <ButtonGroup size="lg" className="mb-2">
-        <Button onClick={() => handleClick("chain")}>Chain</Button>
+        <Button onClick={() => handleClick("chain")}>🏠 Home</Button>
         <Button onClick={() => handleClick("wallet")}>Wallet</Button>
         <Button onClick={() => handleClick("posting")}>Posting</Button>
-        <Button onClick={() => handleClick("mining")}>Mining</Button>
+        <Button variant={"danger"} onClick={() => handleClick("mining")}>
+          ⛏️ Mining
+        </Button>
       </ButtonGroup>
     </div>
   );

@@ -3,6 +3,7 @@ import React from "react";
 import { Provider } from "react-redux";
 import store from "./store/store";
 import RootLayout from "./components/root-layout";
+import "./style.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const App = () => {

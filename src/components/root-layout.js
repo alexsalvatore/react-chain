@@ -2,10 +2,10 @@ import React, { useEffect } from "react";
 
 import MiningLayout from "./mining-layout";
 import WalletLayout from "./wallet-layout";
-import MoneyLayout from "./money-layout";
 import NavLayout from "./nav-layout";
 import PostingLayout from "./posting-layout";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Container } from "react-bootstrap";
 
 import store from "../store/store";
 import { initChain } from "../store/actions/chain-actions";
@@ -20,42 +20,25 @@ const RootLayout = (props) => {
 
   return (
     <Router>
-      <div>
-        <h1>Microchain 💴</h1>
-        <div>
-          based on{" "}
-          <a
-            href="https://www.npmjs.com/package/@asalvatore/microchain"
-            target="_blank"
-          >
-            @asalvatore's <i>Microchain</i>
-          </a>
+      <Container>
+        <div className={"py-2 text-center container"}>
+          <div></div>
+          <h1>Microchain 💴</h1>
+          {/*<div>
+            based on{" "}
+            <a
+              href="https://www.npmjs.com/package/@asalvatore/microchain"
+              target="_blank"
+            >
+              @asalvatore's <i>Microchain</i>
+            </a>
+          </div>*/}
+          <div>
+            {/*<MoneyLayout></MoneyLayout>*/}
+            <NavLayout></NavLayout>
+          </div>
         </div>
-        <MoneyLayout></MoneyLayout>
-        <NavLayout></NavLayout>
 
-        {/*<nav>
-          <ul>
-            <li>
-              <Link to="/">Chain</Link>
-            </li>
-            {keys.publicKey && (
-              <li>
-                <Link to="/wallet">Wallet</Link>
-              </li>
-            )}
-            {keys.publicKey && (
-              <li>
-                <Link to="/posting">Posting</Link>
-              </li>
-            )}
-            {keys.publicKey && (
-              <li>
-                <Link to="/mining">Mining</Link>
-              </li>
-            )}
-          </ul>
-            </nav>*/}
         <Switch>
           <Route path="/chain">
             <BlockchainComponent />
@@ -69,12 +52,14 @@ const RootLayout = (props) => {
           <Route path="/mining">
             <MiningLayout />
           </Route>
-
+          <Route path="/:userId">
+            <BlockchainComponent />
+          </Route>
           <Route path="/">
             <BlockchainComponent />
           </Route>
         </Switch>
-      </div>
+      </Container>
     </Router>
   );
 };

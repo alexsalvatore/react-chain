@@ -1,17 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { Media, Image } from "react-bootstrap";
+import PublicKeyLayout from "./public-key-layout";
 
 const ForumLayout = (props) => {
   return (
     <div>
-      {props.chain.contentTX.map((tx, index) => {
+      {props.contentTX.map((tx, index) => {
         return (
-          <div key={index}>
+          <div key={index} className={"item-container"}>
             <Media>
               {JSON.parse(tx.content).image && (
                 <Image
-                  width={245}
+                  width={200}
                   className="align-self-start mr-3"
                   src={JSON.parse(tx.content).image}
                   thumbnail
@@ -19,7 +20,10 @@ const ForumLayout = (props) => {
               )}
               <Media.Body>
                 <figcaption className="blockquote-footer">
-                  @{tx.sender.slice(0, 30)}...
+                  {tx.content && JSON.parse(tx.content).name && (
+                    <span>{JSON.parse(tx.content).name}</span>
+                  )}
+                  <PublicKeyLayout publicKey={tx.sender}></PublicKeyLayout>{" "}
                   <br />
                   {new Date(tx.ts).toISOString()}
                   <br />
@@ -36,8 +40,4 @@ const ForumLayout = (props) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  chain: state.chainReducer,
-});
-
-export default connect(mapStateToProps)(ForumLayout);
+export default ForumLayout;
